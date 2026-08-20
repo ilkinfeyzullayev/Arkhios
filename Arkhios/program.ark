@@ -1,0 +1,6 @@
+var x = 123;
+float y = 57.25;
+var result = x + y * 2;
+var comparison = x >= 100;
+var equality = x == 123;
+int square(x) => x ^ 2;
