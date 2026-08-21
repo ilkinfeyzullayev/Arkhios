@@ -10,6 +10,7 @@ namespace Arkhios.Lexer.Tokens.TokenTypes
         Number,
         Semicolon,
         Type,
-        Symbol
+        Symbol,
+        Keyword
     }
 }

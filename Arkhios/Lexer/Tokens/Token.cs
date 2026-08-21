@@ -9,7 +9,7 @@ namespace Arkhios.Lexer.Tokens
 
     internal record Identifier(string Value) : Token(TokenType.Identifier);
     internal record Type(TypeType TypeType) : Token(TokenType.Type);
-    internal record Semicolon() : Token(TokenType.Semicolon);
     internal record Number(string Value) : Token(TokenType.Number);
     internal record Symbol(SymbolType SymbolType) : Token(TokenType.Symbol);
+    internal record Keyword(KeywordType KeywordType) : Token(TokenType.Keyword);
 }

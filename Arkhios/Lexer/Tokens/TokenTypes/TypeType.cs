@@ -6,13 +6,13 @@ namespace Arkhios.Lexer.Tokens.TokenTypes
 {
     internal enum TypeType
     {
-        Var,
         Int,
         Float,
         BigInt,
         BigFloat,
         BigNum,
         Complex,
+        Boolean,
         List,
         Vector
     }

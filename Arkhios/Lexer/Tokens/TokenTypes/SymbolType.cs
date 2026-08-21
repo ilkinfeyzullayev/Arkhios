@@ -28,7 +28,12 @@ namespace Arkhios.Lexer.Tokens.TokenTypes
         RightBrace,
 
         Comma,
+        Semicolon,
 
-        Arrow
+        Arrow,
+
+        And,
+        Or,
+        Not
     }
 }
