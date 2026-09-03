@@ -29,8 +29,9 @@ namespace Arkhios.Lexer.Tokens.TokenTypes
 
         Comma,
         Semicolon,
-
         Arrow,
+        Increment,
+        Decrement,
 
         And,
         Or,

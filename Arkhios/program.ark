@@ -1,1 +1,1 @@
-var x = true || false;
+var a = 5;

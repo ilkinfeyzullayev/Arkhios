@@ -8,9 +8,8 @@ namespace Arkhios.Lexer.Tokens.TokenTypes
     {
         Identifier,
         Number,
-        Semicolon,
-        Type,
         Symbol,
-        Keyword
+        Keyword,
+        String
     }
 }

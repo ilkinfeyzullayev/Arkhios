@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Arkhios.Errors.Lexing
 {
-    internal sealed class UnexpectedCharacterException : ArkhiosException
+    internal sealed class UnexpectedCharacterException : LexingException
     {
         public UnexpectedCharacterException(
             char character,

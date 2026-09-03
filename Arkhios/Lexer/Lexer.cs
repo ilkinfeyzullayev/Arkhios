@@ -4,14 +4,13 @@ using Arkhios.Lexer.Tokens;
 using Arkhios.Lexer.Tokens.TokenTypes;
 using System;
 using System.Collections.Generic;
-using Type = Arkhios.Lexer.Tokens.Type;
+using String = Arkhios.Lexer.Tokens.String;
 
 namespace Arkhios.Lexer
 {
     internal class Lexer
     {
-        private List<Token> _tokenList = new();
-        public IReadOnlyList<Token> Tokens => _tokenList;
+        public List<Token> TokenList = new();
 
         private readonly string _source;
 
@@ -38,7 +37,7 @@ namespace Arkhios.Lexer
 
         private static readonly HashSet<string> _doubleSymbols =
         [
-            "==", "!=", "<=", ">=", "=>", "&&", "||"
+            "==", "!=", "<=", ">=", "=>", "&&", "||", "++", "--"
         ];
 
         public Lexer(string source)
@@ -73,6 +72,9 @@ namespace Arkhios.Lexer
                 else if (_singleSymbols.Contains(_currentChar) || _helperSingleSymbols.Contains(_currentChar))
                 {
                     LexSymbol();
+                } else if (_currentChar == '\'' || _currentChar == '"')
+                {
+                    LexString();
                 }
                 else
                 {
@@ -115,11 +117,12 @@ namespace Arkhios.Lexer
                 InvalidNumber(lexeme);
             }
 
-            _tokenList.Add(new Number(lexeme.ToString()));
+            TokenList.Add(new Number(lexeme.ToString()));
         }
 
         private void LexSymbol()
         {
+
             if (_currentIndex + 1 < _source.Length)
             {
                 var lexeme = _source[_currentIndex..(_currentIndex + 2)];
@@ -138,6 +141,40 @@ namespace Arkhios.Lexer
             }
 
             SendLexeme(_source.AsSpan(_currentIndex, 1));
+            _currentIndex++;
+        }
+
+        private void LexString()
+        {
+
+            int stringStart = _currentIndex;
+            char quote = _currentChar;
+
+            _currentIndex++;
+            _lexemeStart = _currentIndex;
+
+            while (_currentIndex < _source.Length &&
+                   _currentChar != quote)
+            {
+                _currentIndex++;
+            }
+
+            if (_currentIndex == _source.Length)
+            {
+                throw new UnterminatedStringException(
+                    _line,
+                    stringStart - _lineStart + 1);
+            }
+
+            TokenList.Add(
+                new String(
+                    _source.AsSpan(
+                        _lexemeStart,
+                        _currentIndex - _lexemeStart
+                    ).ToString()
+                )
+            );
+
             _currentIndex++;
         }
 
@@ -170,7 +207,7 @@ namespace Arkhios.Lexer
 
         private void SendLexeme(ReadOnlySpan<char> lexeme)
         {
-            _tokenList.Add((lexeme) switch
+            TokenList.Add((lexeme) switch
             {
                 // Keywords
                 "var" => new Keyword(KeywordType.Var),
@@ -182,17 +219,6 @@ namespace Arkhios.Lexer
                 "return" => new Keyword(KeywordType.Return),
                 "true" => new Keyword(KeywordType.True),
                 "false" => new Keyword(KeywordType.False),
-
-                // Types
-                "int" => new Type(TypeType.Int),
-                "float" => new Type(TypeType.Float),
-                "BigInt" => new Type(TypeType.BigInt),
-                "BigFloat" => new Type(TypeType.BigFloat),
-                "BigNum" => new Type(TypeType.BigNum),
-                "complex" => new Type(TypeType.Complex),
-                "bool" => new Type(TypeType.Boolean),
-                "list" => new Type(TypeType.List),
-                "vector" => new Type(TypeType.Vector),
 
                 // Arithmetic
                 "+" => new Symbol(SymbolType.Plus),
@@ -227,6 +253,8 @@ namespace Arkhios.Lexer
                 "," => new Symbol(SymbolType.Comma),
                 ";" => new Symbol(SymbolType.Semicolon),
                 "=>" => new Symbol(SymbolType.Arrow),
+                "++" => new Symbol(SymbolType.Increment),
+                "--" => new Symbol(SymbolType.Decrement),
 
                 _ => new Identifier(lexeme.ToString())
             });

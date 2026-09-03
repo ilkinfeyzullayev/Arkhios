@@ -1,5 +1,7 @@
-﻿using Arkhios.Errors;
+﻿using Arkhios.AST.Statements;
+using Arkhios.Errors;
 using Arkhios.Lexer;
+using Arkhios.Parser;
 
 string? directory = AppContext.BaseDirectory;
 
@@ -37,9 +39,12 @@ catch (ArkhiosException ex)
     return;
 }
 
-Console.WriteLine("Successfully loaded Arkhios code:");
+Parser parser = new(lexer.TokenList);
+parser.Parse();
 
-foreach (var token in lexer.Tokens)
+foreach (var statement in parser.AST)
 {
-    Console.WriteLine(token);
+    Console.WriteLine(statement);
 }
+
+

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Arkhios.Errors.Lexing
 {
-    internal sealed class InvalidNumberException : ArkhiosException
+    internal sealed class InvalidNumberException : LexingException
     {
         public InvalidNumberException(
             string number,
