@@ -6,49 +6,62 @@ The language and its implementation are currently under active development, so *
 
 ## Status
 
-**Early development**
+**Early development — lexer, parser, and AST implementation underway**
 
-The project currently has an initial lexer capable of:
+The project currently has an initial lexer and parser capable of:
 
 * Reading `.ark` source files
 * Recognizing identifiers and language keywords
-* Recognizing numeric literals
+* Recognizing numeric and string literals
 * Recognizing single- and multi-character symbols
 * Producing structured tokens
 * Reporting basic lexical errors
+* Parsing variable declarations
+* Building an initial abstract syntax tree (AST)
+* Parsing literals, identifiers, and parenthesized expressions
+* Representing parsed programs as structured AST nodes
 
-The parser, semantic analysis, execution model, and other major parts of the language are still under development.
+The parser and AST are still being expanded. Binary expressions, operator precedence, semantic analysis, execution, and other major language features have not yet been implemented.
 
 ## Example
 
-A small example of the current syntax:
+A small example of the **currently supported** syntax:
 
 ```arkhios
 var x = 123;
 float y = 57.25;
 
-var result = x + y * 2;
-var comparison = x >= 100;
-
-int square(x) => x ^ 2;
+var result = x;
+var name = "Arkhios";
+var value = (123);
 ```
 
 This syntax is **not considered stable** and may change as Arkhios develops.
 
+Features such as arithmetic expressions, comparisons, functions, control flow, and other language constructs are planned but are not yet fully supported by the parser.
+
 ## Project Structure
 
-The project is currently organized around the main stages of the language implementation:
+The project is currently organized around the main components of the language implementation:
 
 ```text
 Arkhios/
+├── AST/
+│   ├── Expressions/
+│   └── Statements/
 ├── Errors/
 ├── Lexer/
 │   └── Tokens/
 ├── Parser/
+│   ├── Parser.cs
+│   ├── Parser.Expressions.cs
+│   ├── Parser.Statements.cs
+│   ├── Parser.Helpers.cs
+│   └── Parser.VariableDeclarations.cs
 └── ...
 ```
 
-The structure will evolve as new compiler/interpreter components are introduced.
+The structure will evolve as additional compiler/interpreter components are introduced.
 
 ## Goals
 
@@ -56,18 +69,19 @@ Arkhios aims to explore:
 
 * Mathematical and formula-oriented syntax
 * A clear and predictable type system
+* Type inference where appropriate
 * Numerical types suitable for both ordinary and high-precision computation
 * Readable mathematical expressions
 * A straightforward language design
 * A complete language implementation built from the ground up
 
-These goals are still being refined.
+These goals are still being refined as development continues.
 
 ## Development
 
-Arkhios is being developed in C# and .NET.
+Arkhios is being developed in **C# and .NET**.
 
-The project is currently focused on building the language implementation incrementally:
+The implementation is being built incrementally through separate language-processing stages:
 
 ```text
 Source Code
@@ -85,13 +99,13 @@ Semantic Analysis
 Execution
 ```
 
-Not all stages are implemented yet.
+The lexer and initial parser/AST infrastructure are currently under development. The later stages are planned but are not implemented yet.
 
 ## Current Philosophy
 
 Arkhios is intentionally being designed from the ground up rather than attempting to follow an existing language specification exactly.
 
-That means some ideas will inevitably be discarded, redesigned, or replaced during development. The current implementation should therefore be treated as experimental rather than a stable language standard.
+This means language features and design decisions may be discarded, redesigned, or replaced during development. The current implementation should therefore be treated as experimental rather than as a stable language standard.
 
 ## License
 
