@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Text;
 using String = Arkhios.Lexer.Tokens.String;
 using Expression = Arkhios.AST.Expressions.Expression;
+using UnaryExpression = Arkhios.AST.Expressions.UnaryExpressions.UnaryExpression;
+using BinaryExpression = Arkhios.AST.Expressions.BinaryExpressions.BinaryExpression;
 
 namespace Arkhios.Parser
 {
@@ -54,9 +56,103 @@ namespace Arkhios.Parser
             return expression;
         }
 
+        private Expression ParseUnary()
+        {
+            switch (Current)
+            {
+                case Symbol { SymbolType: SymbolType.Minus }:
+                    Advance();
+                    return new UnaryExpression(
+                        SymbolType.Minus,
+                        ParseUnary());
+
+                case Symbol { SymbolType: SymbolType.Plus }:
+                    Advance();
+                    return new UnaryExpression(
+                        SymbolType.Plus,
+                        ParseUnary());
+
+                case Symbol { SymbolType: SymbolType.Not }:
+                    Advance();
+                    return new UnaryExpression(
+                        SymbolType.Not,
+                        ParseUnary());
+
+                default:
+                    return ParsePower();
+            }
+        }
+
+        private Expression ParsePower()
+        {
+            Expression left = ParsePrimary();
+
+            if (Current is Symbol { SymbolType: SymbolType.Power })
+            {
+                Advance();
+
+                Expression right = ParseUnary();
+
+                return new BinaryExpression(
+                    left,
+                    SymbolType.Power,
+                    right);
+            }
+
+            return left;
+        }
+
+        private Expression ParseMultiplication()
+        {
+            Expression left = ParseUnary();
+
+            while (Current is Symbol
+                {
+                    SymbolType: SymbolType.Multiply
+                    or SymbolType.Divide
+                })
+            {
+                SymbolType @operator = ((Symbol)Current).SymbolType;
+                Advance();
+
+                Expression right = ParseUnary();
+
+                left = new BinaryExpression(
+                    left,
+                    @operator,
+                    right);
+            }
+
+            return left;
+        }
+
+        private Expression ParseAddition()
+        {
+            Expression left = ParseMultiplication();
+
+            while (Current is Symbol
+                {
+                    SymbolType: SymbolType.Plus
+                    or SymbolType.Minus
+                })
+            {
+                SymbolType @operator = ((Symbol)Current).SymbolType;
+                Advance();
+
+                Expression right = ParseMultiplication();
+
+                left = new BinaryExpression(
+                    left,
+                    @operator,
+                    right);
+            }
+
+            return left;
+        }
+
         private Expression ParseExpression()
         {
-            return ParsePrimary();
+            return ParseAddition();
         }
     }
 }

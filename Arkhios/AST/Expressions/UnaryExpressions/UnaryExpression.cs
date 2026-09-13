@@ -5,12 +5,12 @@ using System.Text;
 
 namespace Arkhios.AST.Expressions.UnaryExpressions
 {
-    internal abstract class UnaryExpression : Expression
+    internal class UnaryExpression : Expression
     {
         public SymbolType Operator { get; }
         public Expression Operand { get; }
 
-        protected UnaryExpression(SymbolType @operator, Expression operand)
+        public UnaryExpression(SymbolType @operator, Expression operand)
         {
             Operator = @operator;
             Operand = operand;
