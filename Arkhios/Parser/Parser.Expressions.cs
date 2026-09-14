@@ -83,6 +83,26 @@ namespace Arkhios.Parser
             }
         }
 
+        private Expression ParseComparison()
+        {
+            Expression left = ParseAddition();
+
+            if (Current is Symbol { SymbolType: SymbolType.Equal or SymbolType.NotEqual or SymbolType.GreaterThan or SymbolType.LessThan or SymbolType.GreaterThanOrEqual or SymbolType.LessThanOrEqual })
+            {
+                SymbolType @operator = ((Symbol)Current).SymbolType;
+                Advance();
+
+                Expression right = ParseAddition();
+
+                return new BinaryExpression(
+                    left,
+                    @operator,
+                    right);
+            }
+
+            return left;
+        }
+
         private Expression ParsePower()
         {
             Expression left = ParsePrimary();
@@ -152,7 +172,7 @@ namespace Arkhios.Parser
 
         private Expression ParseExpression()
         {
-            return ParseAddition();
+            return ParseComparison();
         }
     }
 }
