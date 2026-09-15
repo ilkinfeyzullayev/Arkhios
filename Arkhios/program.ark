@@ -1,1 +1,71 @@
-var ae = !(-2^2 + 10 * 3 >= 25);
+var t1 = foo(a + b * c, d ^ e ^ f);
+
+var t2 = -foo(a ^ 2 + b, !(c == d)) * bar(e - f);
+
+var t3 = foo(bar(a + b * c), baz(d ^ -e)) ^ 2;
+
+var t4 = foo(a + b > c && d < e || f == g);
+
+var t5 = foo(-(a + b) * c, (d ^ e) ^ f, !(!x));
+
+var t6 = foo(bar(baz(a)), qux(a + b * c, d ^ e));
+
+var t7 = -foo(a) ^ bar(b) * baz(c + d);
+
+var t8 = foo(a ^ -b ^ c, -d * e + f);
+
+var t9 = foo(a + bar(b * baz(c ^ d)), e == foo(f));
+
+var t10 = foo(
+    a + b * c ^ d,
+    -(e + f) / g,
+    h == i && j != k || l >= m
+);
+
+var t11 = foo(a, bar(b, baz(c, qux(d))));
+
+var t12 = !(foo(a + b) ^ -bar(c * d)) && baz(e) > f;
+
+var t13 = foo(a + b) ^ bar(c + d) ^ baz(e + f);
+
+var t14 = -foo(a ^ (b + c * d)) + bar(-(e ^ f));
+
+var t15 = foo(a == b || c != d && e < f, bar(g >= h));
+
+var t16 = foo((a + b) * (c - d), (e ^ f) ^ (g ^ h));
+
+var t17 = foo(- -a, ! !b, + - +c, d ^ - -e);
+
+var t18 = foo(bar(a + b) * baz(c - d) ^ qux(e / f));
+
+var t19 = foo(a + b * bar(c ^ d), !(e == foo(f + g)));
+
+var t20 = calculate(
+    foo(a + b * c),
+    bar(d ^ -e),
+    baz(!(f == g) && h < i)
+);
+
+var t21 = foo(a + bar(b)) * baz(c + qux(d)) ^ -e;
+
+var t22 = !(foo(a) == bar(b)) || baz(c) && qux(d) != e;
+
+var t23 = foo(
+    bar(a ^ b ^ c),
+    baz(-d + e * f),
+    qux(g == h || i != j)
+);
+
+var t24 = foo(a ^ -bar(b ^ -baz(c)));
+
+var t25 = -foo(bar(a + b) ^ baz(c * d)) / qux(e - f);
+
+var t26 = foo(a + b, bar(c + d, baz(e + f, qux(g + h))));
+
+var t27 = foo(a < b && c < d || e < f && g < h);
+
+var t28 = foo(-(a ^ 2) + bar(b ^ 3), !(c != d));
+
+var t29 = foo(a) + bar(b) * baz(c) ^ qux(d);
+
+var t30 = foo(a + b == bar(c * d) && baz(e ^ f) >= g);

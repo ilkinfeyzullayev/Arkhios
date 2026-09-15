@@ -9,6 +9,7 @@ using String = Arkhios.Lexer.Tokens.String;
 using Expression = Arkhios.AST.Expressions.Expression;
 using UnaryExpression = Arkhios.AST.Expressions.UnaryExpressions.UnaryExpression;
 using BinaryExpression = Arkhios.AST.Expressions.BinaryExpressions.BinaryExpression;
+using Arkhios.AST.Expressions.CallExpressions;
 
 namespace Arkhios.Parser
 {
@@ -83,6 +84,95 @@ namespace Arkhios.Parser
             }
         }
 
+        private Expression ParsePostfix()
+        {
+            if (Current is Identifier functionName)
+            {
+                if (Next is Symbol { SymbolType: SymbolType.LeftParen })
+                {
+                    Advance();
+                    List<Expression> arguments = new();
+
+                    if (Next is not Symbol { SymbolType: SymbolType.RightParen })
+                    {
+                        Advance();
+                        arguments = ParseArguments();
+                    }
+                    else
+                    {
+                        Advance();
+                    }
+
+                    ExpectSymbol(SymbolType.RightParen);
+
+                    return new CallExpression(functionName.Value, arguments);
+                }
+
+                return ParsePrimary();
+            }
+
+            return ParsePrimary();
+        }
+
+        private List<Expression> ParseArguments()
+        {
+            List<Expression> arguments = new();
+
+            while (Current is not Symbol { SymbolType: SymbolType.RightParen })
+            {
+                arguments.Add(ParseExpression());
+
+                if (Current is Symbol { SymbolType: SymbolType.Comma })
+                {
+                    Advance();
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return arguments;
+        }
+
+        private Expression ParseOr()
+        {
+            Expression left = ParseAnd();
+
+            while (Current is Symbol { SymbolType: SymbolType.Or })
+            {
+                Advance();
+
+                Expression right = ParseAnd();
+
+                left = new BinaryExpression(
+                    left,
+                    SymbolType.Or,
+                    right);
+            }
+
+            return left;
+        }
+
+        private Expression ParseAnd()
+        {
+            Expression left = ParseComparison();
+
+            while (Current is Symbol { SymbolType: SymbolType.And })
+            {
+                Advance();
+
+                Expression right = ParseComparison();
+
+                left = new BinaryExpression(
+                    left,
+                    SymbolType.And,
+                    right);
+            }
+
+            return left;
+        }
+
         private Expression ParseComparison()
         {
             Expression left = ParseAddition();
@@ -105,7 +195,7 @@ namespace Arkhios.Parser
 
         private Expression ParsePower()
         {
-            Expression left = ParsePrimary();
+            Expression left = ParsePostfix();
 
             if (Current is Symbol { SymbolType: SymbolType.Power })
             {
@@ -172,7 +262,7 @@ namespace Arkhios.Parser
 
         private Expression ParseExpression()
         {
-            return ParseComparison();
+            return ParseOr();
         }
     }
 }

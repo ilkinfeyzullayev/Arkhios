@@ -61,6 +61,13 @@ namespace Arkhios.Lexer
 
                     _currentIndex++;
                 }
+                else if (_currentChar == '/' &&
+                         _currentIndex + 1 < _source.Length &&
+                         (_source[_currentIndex + 1] == '/' ||
+                          _source[_currentIndex + 1] == '*'))
+                {
+                    LexComment();
+                }
                 else if (char.IsLetter(_currentChar))
                 {
                     LexIdentifier();
@@ -69,10 +76,12 @@ namespace Arkhios.Lexer
                 {
                     LexNumber();
                 }
-                else if (_singleSymbols.Contains(_currentChar) || _helperSingleSymbols.Contains(_currentChar))
+                else if (_singleSymbols.Contains(_currentChar) ||
+                         _helperSingleSymbols.Contains(_currentChar))
                 {
                     LexSymbol();
-                } else if (_currentChar == '\'' || _currentChar == '"')
+                }
+                else if (_currentChar == '\'' || _currentChar == '"')
                 {
                     LexString();
                 }
@@ -81,6 +90,47 @@ namespace Arkhios.Lexer
                     UnexpectedCharacter();
                 }
             }
+        }
+
+        private void LexComment()
+        {
+            if (_source[_currentIndex + 1] == '/')
+            {
+                _currentIndex += 2;
+
+                while (_currentIndex < _source.Length &&
+                       _currentChar != '\n')
+                {
+                    _currentIndex++;
+                }
+
+                return;
+            }
+
+            _currentIndex += 2;
+
+            while (_currentIndex < _source.Length)
+            {
+                if (_currentChar == '*' &&
+                    _currentIndex + 1 < _source.Length &&
+                    _source[_currentIndex + 1] == '/')
+                {
+                    _currentIndex += 2;
+                    return;
+                }
+
+                if (_currentChar == '\n')
+                {
+                    _line++;
+                    _lineStart = _currentIndex + 1;
+                }
+
+                _currentIndex++;
+            }
+
+            throw new UnterminatedCommentException(
+                _line,
+                _lexemeStart - _lineStart + 1);
         }
 
         private void LexIdentifier()
@@ -122,7 +172,6 @@ namespace Arkhios.Lexer
 
         private void LexSymbol()
         {
-
             if (_currentIndex + 1 < _source.Length)
             {
                 var lexeme = _source[_currentIndex..(_currentIndex + 2)];
@@ -146,7 +195,6 @@ namespace Arkhios.Lexer
 
         private void LexString()
         {
-
             int stringStart = _currentIndex;
             char quote = _currentChar;
 

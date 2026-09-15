@@ -1,6 +1,7 @@
 ﻿using Arkhios.Errors;
 using Arkhios.Lexer;
 using Arkhios.Parser;
+using System.Collections;
 using System.Reflection;
 
 string? directory = AppContext.BaseDirectory;
@@ -42,57 +43,127 @@ catch (ArkhiosException ex)
 Parser parser = new(lexer.TokenList);
 parser.Parse();
 
-foreach (var statement in parser.AST)
+for (int i = 0; i < parser.AST.Count; i++)
 {
-    PrintTree(statement);
+    PrintTree(
+        parser.AST[i],
+        "",
+        i == parser.AST.Count - 1);
 }
 
-static void PrintTree(object? node, string prefix = "", bool isLast = true)
+static void PrintTree(
+    object? node,
+    string prefix = "",
+    bool isLast = true)
 {
     if (node == null)
         return;
 
     string branch = isLast ? "└── " : "├── ";
 
-    Console.WriteLine($"{prefix}{branch}{node.GetType().Name}");
+    Console.WriteLine(
+        $"{prefix}{branch}{node.GetType().Name}");
 
-    var properties = node.GetType()
-        .GetProperties(BindingFlags.Public | BindingFlags.Instance);
+    string childPrefix =
+        prefix + (isLast ? "    " : "│   ");
 
-    for (int i = 0; i < properties.Length; i++)
+    PrintChildren(node, childPrefix);
+}
+
+static void PrintChildren(
+    object node,
+    string prefix)
+{
+    var children = node
+        .GetType()
+        .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+        .Where(property =>
+            property.CanRead &&
+            property.GetIndexParameters().Length == 0)
+        .Select(property => new
+        {
+            property.Name,
+            Value = property.GetValue(node)
+        })
+        .Where(child => child.Value != null)
+        .ToList();
+
+    for (int i = 0; i < children.Count; i++)
     {
-        var property = properties[i];
+        var child = children[i];
 
-        if (!property.CanRead)
-            continue;
+        bool isLast = i == children.Count - 1;
 
-        object? value = property.GetValue(node);
+        PrintProperty(
+            child.Name,
+            child.Value!,
+            prefix,
+            isLast);
+    }
+}
 
-        if (value == null)
-            continue;
+static void PrintProperty(
+    string name,
+    object value,
+    string prefix,
+    bool isLast)
+{
+    string branch = isLast ? "└── " : "├── ";
 
-        bool lastProperty = i == properties.Length - 1;
+    if (IsSimpleValue(value))
+    {
+        Console.WriteLine(
+            $"{prefix}{branch}{name}: {value}");
 
-        if (value is string ||
-            value.GetType().IsPrimitive ||
-            value.GetType().IsEnum)
+        return;
+    }
+
+    Console.WriteLine(
+        $"{prefix}{branch}{name}:");
+
+    string childPrefix =
+        prefix + (isLast ? "    " : "│   ");
+
+    PrintValue(
+        value,
+        childPrefix);
+}
+
+static void PrintValue(
+    object value,
+    string prefix)
+{
+    if (value is IEnumerable enumerable &&
+        value is not string)
+    {
+        var items = enumerable
+            .Cast<object?>()
+            .Where(item => item != null)
+            .ToList();
+
+        for (int i = 0; i < items.Count; i++)
         {
-            string propertyBranch = lastProperty ? "└── " : "├── ";
-            Console.WriteLine(
-                $"{prefix}{(isLast ? "    " : "│   ")}{propertyBranch}" +
-                $"{property.Name}: {value}");
-        }
-        else
-        {
-            Console.WriteLine(
-                $"{prefix}{(isLast ? "    " : "│   ")}" +
-                $"{(lastProperty ? "└── " : "├── ")}" +
-                $"{property.Name}:");
+            object item = items[i]!;
 
             PrintTree(
-                value,
-                prefix + (isLast ? "    " : "│   "),
-                lastProperty);
+                item,
+                prefix,
+                i == items.Count - 1);
         }
+
+        return;
     }
+
+    PrintTree(
+        value,
+        prefix,
+        true);
+}
+
+static bool IsSimpleValue(object value)
+{
+    return value is string ||
+           value.GetType().IsPrimitive ||
+           value.GetType().IsEnum ||
+           value is decimal;
 }
