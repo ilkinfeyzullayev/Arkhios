@@ -14,14 +14,20 @@ The project currently has an initial lexer and parser capable of:
 * Recognizing identifiers and language keywords
 * Recognizing numeric and string literals
 * Recognizing single- and multi-character symbols
+* Recognizing single-line and multi-line comments
+* Reporting lexical errors, including unterminated multi-line comments
 * Producing structured tokens
-* Reporting basic lexical errors
 * Parsing variable declarations
+* Parsing literals and identifiers
+* Parsing parenthesized expressions
+* Parsing unary and binary expressions
+* Applying operator precedence and associativity
+* Parsing comparison and logical operators
+* Parsing function call expressions and argument lists
 * Building an initial abstract syntax tree (AST)
-* Parsing literals, identifiers, and parenthesized expressions
 * Representing parsed programs as structured AST nodes
 
-The parser and AST are still being expanded. Binary expressions, operator precedence, semantic analysis, execution, and other major language features have not yet been implemented.
+The parser and AST are still being expanded. Function declarations, control flow, semantic analysis, execution, and other major language features have not yet been implemented.
 
 ## Example
 
@@ -31,14 +37,16 @@ A small example of the **currently supported** syntax:
 var x = 123;
 float y = 57.25;
 
-var result = x;
-var name = "Arkhios";
-var value = (123);
+var result = x + y * 2;
+var valid = x >= 100 && y < 100;
+
+var value = sqrt(x);
+var nested = foo(x + y, -(x ^ 2));
 ```
 
 This syntax is **not considered stable** and may change as Arkhios develops.
 
-Features such as arithmetic expressions, comparisons, functions, control flow, and other language constructs are planned but are not yet fully supported by the parser.
+Function declarations, control flow, and other higher-level language constructs are planned but are not yet fully supported by the parser.
 
 ## Project Structure
 
