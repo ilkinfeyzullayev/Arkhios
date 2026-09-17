@@ -1,4 +1,5 @@
-﻿using Arkhios.Lexer.Tokens;
+﻿using Arkhios.AST.Statements;
+using Arkhios.Lexer.Tokens;
 using Arkhios.Lexer.Tokens.TokenTypes;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,21 @@ namespace Arkhios.Parser
         {
             if (_position < TokenList.Count)
                 _position++;
+        }
+
+        private Statement DispatchDeclaration()
+        {
+            if (TokenList[_position + 2] is Symbol { SymbolType: SymbolType.Assign })
+            {
+                return ParseVariableDeclaration();
+            }
+            else if (TokenList[_position + 2] is Symbol { SymbolType: SymbolType.LeftParen })
+            {
+                return ParseFunctionDeclaration();
+            } else
+            {
+                throw new Exception();
+            }
         }
     }
 }

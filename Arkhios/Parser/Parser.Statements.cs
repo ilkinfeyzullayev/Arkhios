@@ -16,8 +16,11 @@ namespace Arkhios.Parser
             return Current switch
             {
                 Keyword { KeywordType: KeywordType.Var } => ParseVariableDeclaration(),
-                Identifier identifier when TypeList.Contains(identifier.Value) => ParseVariableDeclaration(),
-                _ => throw new Exception("Expected a statement."),
+                Keyword { KeywordType: KeywordType.Void } => ParseFunctionDeclaration(),
+                Identifier identifier when TypeList.Contains(identifier.Value) => DispatchDeclaration(),
+                Keyword { KeywordType: KeywordType.Return } => ParseReturnStatement(),
+                Symbol { SymbolType: SymbolType.LeftBrace } => ParseBlockStatement(),
+                _ => throw new Exception("Expected a statement.")
             };
         }
     }

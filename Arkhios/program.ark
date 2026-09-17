@@ -1,71 +1,199 @@
-var t1 = foo(a + b * c, d ^ e ^ f);
+// ===== Basic functions =====
 
-var t2 = -foo(a ^ 2 + b, !(c == d)) * bar(e - f);
+void empty()
+{
+}
 
-var t3 = foo(bar(a + b * c), baz(d ^ -e)) ^ 2;
+int noParameters()
+{
+}
 
-var t4 = foo(a + b > c && d < e || f == g);
+int oneParameter(int x)
+{
+}
 
-var t5 = foo(-(a + b) * c, (d ^ e) ^ f, !(!x));
+float twoParameters(int x, float y)
+{
+}
 
-var t6 = foo(bar(baz(a)), qux(a + b * c, d ^ e));
+complex manyParameters(int a, float b, complex c, int d, float e)
+{
+}
 
-var t7 = -foo(a) ^ bar(b) * baz(c + d);
 
-var t8 = foo(a ^ -b ^ c, -d * e + f);
+// ===== Functions with nested blocks =====
 
-var t9 = foo(a + bar(b * baz(c ^ d)), e == foo(f));
+void nestedBlocks(int x, int y)
+{
+    {
+        {
+        }
 
-var t10 = foo(
-    a + b * c ^ d,
-    -(e + f) / g,
-    h == i && j != k || l >= m
-);
+        {
+            {
+            }
+        }
+    }
 
-var t11 = foo(a, bar(b, baz(c, qux(d))));
+    {
+        int a = x + y;
+        {
+            int b = a * 2;
+            {
+                int c = b ^ 2;
+            }
+        }
+    }
+}
 
-var t12 = !(foo(a + b) ^ -bar(c * d)) && baz(e) > f;
 
-var t13 = foo(a + b) ^ bar(c + d) ^ baz(e + f);
+// ===== Functions containing expressions =====
 
-var t14 = -foo(a ^ (b + c * d)) + bar(-(e ^ f));
+int arithmetic(int a, int b)
+{
+    int x = a + b * 2;
+    int y = (a + b) * 2;
+    int z = -(x ^ 2);
+    int result = x + y * z / 2;
 
-var t15 = foo(a == b || c != d && e < f, bar(g >= h));
+    {
+        int nested = ((a + b) * (a - b)) ^ 2;
+    }
+}
 
-var t16 = foo((a + b) * (c - d), (e ^ f) ^ (g ^ h));
 
-var t17 = foo(- -a, ! !b, + - +c, d ^ - -e);
+bool comparisons(int x, int y)
+{
+    var a = x == y;
+    var b = x != y;
+    var c = x > y;
+    var d = x < y;
+    var e = x >= y;
+    var f = x <= y;
+}
 
-var t18 = foo(bar(a + b) * baz(c - d) ^ qux(e / f));
 
-var t19 = foo(a + b * bar(c ^ d), !(e == foo(f + g)));
+bool logical(int x, int y, int z)
+{
+    var a = x > 10 && y < 20;
+    var b = x > 10 || y < 20;
+    var c = x > 10 && y < 20 || z == 5;
+    var d = !(x == y);
+    var e = !!true;
+    var f = !(x > 5 && y < 10);
+}
 
-var t20 = calculate(
-    foo(a + b * c),
-    bar(d ^ -e),
-    baz(!(f == g) && h < i)
-);
 
-var t21 = foo(a + bar(b)) * baz(c + qux(d)) ^ -e;
+// ===== Function calls =====
 
-var t22 = !(foo(a) == bar(b)) || baz(c) && qux(d) != e;
+float calls(float x)
+{
+    var a = sqrt(x);
+    var b = foo(x, 10);
+    var c = calculate(x + 5, -(x ^ 2));
+    var d = outer(inner(x), second(x, 2));
+    var e = foo();
+    var f = foo(bar(x), baz(1, 2, 3));
+}
 
-var t23 = foo(
-    bar(a ^ b ^ c),
-    baz(-d + e * f),
-    qux(g == h || i != j)
-);
 
-var t24 = foo(a ^ -bar(b ^ -baz(c)));
+// ===== Everything together =====
 
-var t25 = -foo(bar(a + b) ^ baz(c * d)) / qux(e - f);
+complex monster(
+    int a,
+    float b,
+    complex c,
+    int d,
+    float e
+)
+{
+    var x = a + b * 2;
+    var y = (a + b) * (d - 3);
+    var z = -(x ^ 2);
 
-var t26 = foo(a + b, bar(c + d, baz(e + f, qux(g + h))));
+    var comparison =
+        x >= 100 &&
+        y < 500 ||
+        d == 42;
 
-var t27 = foo(a < b && c < d || e < f && g < h);
+    var call1 = sqrt(x);
+    var call2 = calculate(
+        x + y,
+        -(z ^ 2)
+    );
 
-var t28 = foo(-(a ^ 2) + bar(b ^ 3), !(c != d));
+    var call3 = outer(
+        inner(a, b),
+        second(
+            x,
+            y,
+            foo(c)
+        )
+    );
 
-var t29 = foo(a) + bar(b) * baz(c) ^ qux(d);
+    {
+        var nested1 = x + y;
+        {
+            var nested2 = nested1 * 2;
+            {
+                var nested3 = -(nested2 ^ 3);
 
-var t30 = foo(a + b == bar(c * d) && baz(e ^ f) >= g);
+                {
+                    var nested4 =
+                        foo(
+                            nested3,
+                            bar(nested2),
+                            baz(x, y, z)
+                        );
+                }
+            }
+        }
+    }
+
+    {
+        int shadow = 10;
+
+        {
+            int shadow = 20;
+
+            {
+                int shadow = 30;
+            }
+        }
+    }
+}
+
+
+// ===== More declarations after complex functions =====
+
+void afterMonster()
+{
+    int x = 123;
+
+    {
+        float y = 57.25;
+
+        {
+            complex z = foo(
+                x,
+                y,
+                -(x ^ 2)
+            );
+        }
+    }
+}
+
+int finalFunction(int x, int y)
+{
+    var result =
+        foo(
+            x + y,
+            bar(
+                x * y
+            ),
+            baz(
+                x ^ 2,
+                y ^ 2
+            )
+        );
+}

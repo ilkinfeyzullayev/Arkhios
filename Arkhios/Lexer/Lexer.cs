@@ -259,11 +259,11 @@ namespace Arkhios.Lexer
             {
                 // Keywords
                 "var" => new Keyword(KeywordType.Var),
+                "void" => new Keyword(KeywordType.Void),
                 "if" => new Keyword(KeywordType.If),
                 "else" => new Keyword(KeywordType.Else),
                 "for" => new Keyword(KeywordType.For),
                 "while" => new Keyword(KeywordType.While),
-                "func" => new Keyword(KeywordType.Function),
                 "return" => new Keyword(KeywordType.Return),
                 "true" => new Keyword(KeywordType.True),
                 "false" => new Keyword(KeywordType.False),

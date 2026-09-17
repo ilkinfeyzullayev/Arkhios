@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Arkhios.AST.Expressions.UnaryExpressions
+namespace Arkhios.AST.Expressions
 {
     internal class UnaryExpression : Expression
     {

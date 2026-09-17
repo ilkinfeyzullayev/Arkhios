@@ -1,5 +1,4 @@
-﻿using Arkhios.AST.Expressions.IdentifierExpressions;
-using Arkhios.AST.Expressions.LiteralExpressions;
+﻿using Arkhios.AST.Expressions.LiteralExpressions;
 using Arkhios.Lexer.Tokens;
 using Arkhios.Lexer.Tokens.TokenTypes;
 using System;
@@ -7,9 +6,9 @@ using System.Collections.Generic;
 using System.Text;
 using String = Arkhios.Lexer.Tokens.String;
 using Expression = Arkhios.AST.Expressions.Expression;
-using UnaryExpression = Arkhios.AST.Expressions.UnaryExpressions.UnaryExpression;
-using BinaryExpression = Arkhios.AST.Expressions.BinaryExpressions.BinaryExpression;
-using Arkhios.AST.Expressions.CallExpressions;
+using UnaryExpression = Arkhios.AST.Expressions.UnaryExpression;
+using BinaryExpression = Arkhios.AST.Expressions.BinaryExpression;
+using Arkhios.AST.Expressions;
 
 namespace Arkhios.Parser
 {

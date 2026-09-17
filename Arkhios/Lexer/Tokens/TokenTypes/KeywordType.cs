@@ -7,6 +7,7 @@ namespace Arkhios.Lexer.Tokens.TokenTypes
     internal enum KeywordType
     {
         Var,
+        Void,
 
         If,
         Else,
@@ -14,7 +15,6 @@ namespace Arkhios.Lexer.Tokens.TokenTypes
         For,
         While,
 
-        Function,
         Return,
 
         True,
