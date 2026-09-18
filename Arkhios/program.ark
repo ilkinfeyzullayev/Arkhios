@@ -1,199 +1,378 @@
-// ===== Basic functions =====
+// ============================================================
+// Basic if
+// ============================================================
 
-void empty()
+if (x > 0)
 {
-}
-
-int noParameters()
-{
-}
-
-int oneParameter(int x)
-{
-}
-
-float twoParameters(int x, float y)
-{
-}
-
-complex manyParameters(int a, float b, complex c, int d, float e)
-{
+    var a = 1;
 }
 
 
-// ===== Functions with nested blocks =====
+// ============================================================
+// If with multiple statements
+// ============================================================
 
-void nestedBlocks(int x, int y)
+if (x > 0)
 {
+    int a = 10;
+    float b = 20.5;
+    var result = a + b * 2;
+}
+
+
+// ============================================================
+// If / else
+// ============================================================
+
+if (x > 0)
+{
+    var result = x;
+}
+else
+{
+    var result = -x;
+}
+
+
+// ============================================================
+// If / else if
+// ============================================================
+
+if (x > 10)
+{
+    var result = 10;
+}
+else if (x > 5)
+{
+    var result = 5;
+}
+
+
+// ============================================================
+// If / else if / else
+// ============================================================
+
+if (x > 10)
+{
+    var result = 10;
+}
+else if (x > 5)
+{
+    var result = 5;
+}
+else
+{
+    var result = 0;
+}
+
+
+// ============================================================
+// Long else-if chain
+// ============================================================
+
+if (x > 100)
+{
+    var result = 100;
+}
+else if (x > 90)
+{
+    var result = 90;
+}
+else if (x > 80)
+{
+    var result = 80;
+}
+else if (x > 70)
+{
+    var result = 70;
+}
+else if (x > 60)
+{
+    var result = 60;
+}
+else
+{
+    var result = 0;
+}
+
+
+// ============================================================
+// Logical conditions
+// ============================================================
+
+if (x > 0 && y > 0)
+{
+    var result = x + y;
+}
+
+if (x > 0 || y > 0)
+{
+    var result = x + y;
+}
+
+if (!(x > 0))
+{
+    var result = 0;
+}
+
+
+// ============================================================
+// Complex expressions in conditions
+// ============================================================
+
+if (x + y * 2 >= z ^ 2)
+{
+    var result = foo(x + y, -(z ^ 2));
+}
+
+
+// ============================================================
+// Function calls in conditions
+// ============================================================
+
+if (sqrt(x) > 10)
+{
+    var result = sqrt(x);
+}
+else if (foo(x, y) == 0)
+{
+    var result = 0;
+}
+
+
+// ============================================================
+// Nested if
+// ============================================================
+
+if (x > 0)
+{
+    if (y > 0)
     {
-        {
-        }
-
-        {
-            {
-            }
-        }
+        var result = x + y;
     }
+}
 
+
+// ============================================================
+// Nested if / else
+// ============================================================
+
+if (x > 0)
+{
+    if (y > 0)
     {
-        int a = x + y;
-        {
-            int b = a * 2;
-            {
-                int c = b ^ 2;
-            }
-        }
+        var result = x + y;
+    }
+    else
+    {
+        var result = x;
+    }
+}
+else
+{
+    if (y > 0)
+    {
+        var result = y;
+    }
+    else
+    {
+        var result = 0;
     }
 }
 
 
-// ===== Functions containing expressions =====
+// ============================================================
+// Nested else-if chains
+// ============================================================
 
-int arithmetic(int a, int b)
+if (x > 0)
 {
-    int x = a + b * 2;
-    int y = (a + b) * 2;
-    int z = -(x ^ 2);
-    int result = x + y * z / 2;
-
+    if (y > 10)
     {
-        int nested = ((a + b) * (a - b)) ^ 2;
+        var result = 1;
+    }
+    else if (y > 5)
+    {
+        var result = 2;
+    }
+    else
+    {
+        var result = 3;
     }
 }
-
-
-bool comparisons(int x, int y)
+else if (x < 0)
 {
-    var a = x == y;
-    var b = x != y;
-    var c = x > y;
-    var d = x < y;
-    var e = x >= y;
-    var f = x <= y;
-}
-
-
-bool logical(int x, int y, int z)
-{
-    var a = x > 10 && y < 20;
-    var b = x > 10 || y < 20;
-    var c = x > 10 && y < 20 || z == 5;
-    var d = !(x == y);
-    var e = !!true;
-    var f = !(x > 5 && y < 10);
-}
-
-
-// ===== Function calls =====
-
-float calls(float x)
-{
-    var a = sqrt(x);
-    var b = foo(x, 10);
-    var c = calculate(x + 5, -(x ^ 2));
-    var d = outer(inner(x), second(x, 2));
-    var e = foo();
-    var f = foo(bar(x), baz(1, 2, 3));
-}
-
-
-// ===== Everything together =====
-
-complex monster(
-    int a,
-    float b,
-    complex c,
-    int d,
-    float e
-)
-{
-    var x = a + b * 2;
-    var y = (a + b) * (d - 3);
-    var z = -(x ^ 2);
-
-    var comparison =
-        x >= 100 &&
-        y < 500 ||
-        d == 42;
-
-    var call1 = sqrt(x);
-    var call2 = calculate(
-        x + y,
-        -(z ^ 2)
-    );
-
-    var call3 = outer(
-        inner(a, b),
-        second(
-            x,
-            y,
-            foo(c)
-        )
-    );
-
+    if (y > 10)
     {
-        var nested1 = x + y;
-        {
-            var nested2 = nested1 * 2;
-            {
-                var nested3 = -(nested2 ^ 3);
+        var result = 4;
+    }
+    else if (y > 5)
+    {
+        var result = 5;
+    }
+    else
+    {
+        var result = 6;
+    }
+}
+else
+{
+    var result = 7;
+}
 
+
+// ============================================================
+// Deep nesting
+// ============================================================
+
+if (a)
+{
+    if (b)
+    {
+        if (c)
+        {
+            if (d)
+            {
+                if (e)
                 {
-                    var nested4 =
-                        foo(
-                            nested3,
-                            bar(nested2),
-                            baz(x, y, z)
-                        );
+                    var result = foo(
+                        a + b,
+                        bar(c * d),
+                        baz(e ^ 2)
+                    );
                 }
             }
         }
     }
+}
 
+
+// ============================================================
+// Function containing conditionals
+// ============================================================
+
+int calculate(int x, int y)
+{
+    if (x > y)
     {
-        int shadow = 10;
-
-        {
-            int shadow = 20;
-
-            {
-                int shadow = 30;
-            }
-        }
+        return x;
+    }
+    else if (x < y)
+    {
+        return y;
+    }
+    else
+    {
+        return x + y;
     }
 }
 
 
-// ===== More declarations after complex functions =====
+// ============================================================
+// Function + nested blocks + calls + conditionals
+// ============================================================
 
-void afterMonster()
+complex monster(int x, float y)
+{
+    int a = x + 10;
+
+    if (a > 100 && y < 50)
+    {
+        {
+            float nested = y * 2;
+
+            if (nested > 25)
+            {
+                return foo(
+                    x,
+                    nested,
+                    -(x ^ 2)
+                );
+            }
+            else if (nested > 10)
+            {
+                return bar(x + a, nested);
+            }
+            else
+            {
+                return baz(x, nested);
+            }
+        }
+    }
+    else if (x < 0 || y >= 100)
+    {
+        if (!false)
+        {
+            return foo(x, y);
+        }
+    }
+    else
+    {
+        return foo(
+            x + y,
+            bar(x * y),
+            baz(x ^ 2, y ^ 2)
+        );
+    }
+}
+
+
+// ============================================================
+// The parser equivalent of someone trying to destroy it
+// ============================================================
+
+void absoluteMonster()
 {
     int x = 123;
 
     {
         float y = 57.25;
 
+        if (x >= 100)
         {
-            complex z = foo(
-                x,
-                y,
-                -(x ^ 2)
-            );
+            if (y < 100)
+            {
+                complex z = foo(
+                    x,
+                    y,
+                    -(x ^ 2)
+                );
+            }
+            else if (y == 100)
+            {
+                complex z = bar(
+                    x + y,
+                    foo(x, y)
+                );
+            }
+            else
+            {
+                complex z = baz(
+                    x * y,
+                    (x + y) ^ 2
+                );
+            }
+        }
+        else if (x >= 50)
+        {
+            if (x > 75 && y > 25 || x == 50)
+            {
+                var z = foo(
+                    sqrt(x),
+                    -(y ^ 2),
+                    bar(
+                        x + y,
+                        baz(x, y)
+                    )
+                );
+            }
+        }
+        else
+        {
+            if (!true)
+            {
+                var impossible = 123;
+            }
         }
     }
-}
-
-int finalFunction(int x, int y)
-{
-    var result =
-        foo(
-            x + y,
-            bar(
-                x * y
-            ),
-            baz(
-                x ^ 2,
-                y ^ 2
-            )
-        );
 }

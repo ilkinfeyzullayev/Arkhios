@@ -20,6 +20,7 @@ namespace Arkhios.Parser
                 Identifier identifier when TypeList.Contains(identifier.Value) => DispatchDeclaration(),
                 Keyword { KeywordType: KeywordType.Return } => ParseReturnStatement(),
                 Symbol { SymbolType: SymbolType.LeftBrace } => ParseBlockStatement(),
+                Keyword { KeywordType: KeywordType.If } => ParseIfStatement(),
                 _ => throw new Exception("Expected a statement.")
             };
         }
