@@ -1,378 +1,289 @@
-// ============================================================
-// Basic if
-// ============================================================
+// ==========================================
+// 1. BASIC WHILE LOOP
+// ==========================================
 
-if (x > 0)
+int whileCounter = 0;
+
+while (whileCounter < 5)
 {
-    var a = 1;
+    whileCounter++;
 }
 
 
-// ============================================================
-// If with multiple statements
-// ============================================================
+// ==========================================
+// 2. WHILE LOOP WITH A COMPOUND CONDITION
+// ==========================================
 
-if (x > 0)
+int a = 0;
+
+while (a < 10 && a != 7)
 {
-    int a = 10;
-    float b = 20.5;
-    var result = a + b * 2;
+    a++;
 }
 
 
-// ============================================================
-// If / else
-// ============================================================
+// ==========================================
+// 3. WHILE LOOP WITH A SINGLE STATEMENT BODY
+// ==========================================
 
-if (x > 0)
+int singleBody = 0;
+
+while (singleBody < 3)
+    singleBody++;
+
+
+// ==========================================
+// 4. NESTED WHILE LOOPS
+// ==========================================
+
+int outer = 0;
+int innerTotal = 0;
+
+while (outer < 3)
 {
-    var result = x;
-}
-else
-{
-    var result = -x;
-}
+    int inner = 0;
 
-
-// ============================================================
-// If / else if
-// ============================================================
-
-if (x > 10)
-{
-    var result = 10;
-}
-else if (x > 5)
-{
-    var result = 5;
-}
-
-
-// ============================================================
-// If / else if / else
-// ============================================================
-
-if (x > 10)
-{
-    var result = 10;
-}
-else if (x > 5)
-{
-    var result = 5;
-}
-else
-{
-    var result = 0;
-}
-
-
-// ============================================================
-// Long else-if chain
-// ============================================================
-
-if (x > 100)
-{
-    var result = 100;
-}
-else if (x > 90)
-{
-    var result = 90;
-}
-else if (x > 80)
-{
-    var result = 80;
-}
-else if (x > 70)
-{
-    var result = 70;
-}
-else if (x > 60)
-{
-    var result = 60;
-}
-else
-{
-    var result = 0;
-}
-
-
-// ============================================================
-// Logical conditions
-// ============================================================
-
-if (x > 0 && y > 0)
-{
-    var result = x + y;
-}
-
-if (x > 0 || y > 0)
-{
-    var result = x + y;
-}
-
-if (!(x > 0))
-{
-    var result = 0;
-}
-
-
-// ============================================================
-// Complex expressions in conditions
-// ============================================================
-
-if (x + y * 2 >= z ^ 2)
-{
-    var result = foo(x + y, -(z ^ 2));
-}
-
-
-// ============================================================
-// Function calls in conditions
-// ============================================================
-
-if (sqrt(x) > 10)
-{
-    var result = sqrt(x);
-}
-else if (foo(x, y) == 0)
-{
-    var result = 0;
-}
-
-
-// ============================================================
-// Nested if
-// ============================================================
-
-if (x > 0)
-{
-    if (y > 0)
+    while (inner < 2)
     {
-        var result = x + y;
+        innerTotal = innerTotal + 1;
+        inner++;
+    }
+
+    outer++;
+}
+
+
+// ==========================================
+// 5. BASIC FOR LOOP
+// ==========================================
+
+int forTotal = 0;
+
+for (int i = 0; i < 10; i++)
+{
+    forTotal = forTotal + i;
+}
+
+
+// ==========================================
+// 6. FOR LOOP WITH DECREMENT
+// ==========================================
+
+int countdown = 5;
+
+for (; countdown > 0; countdown--)
+{
+    forTotal = forTotal + countdown;
+}
+
+
+// ==========================================
+// 7. FOR LOOP WITH AN ASSIGNMENT INITIALIZER
+// ==========================================
+
+int j = 0;
+
+for (j = 0; j < 5; j++)
+{
+    forTotal = forTotal + j;
+}
+
+
+// ==========================================
+// 8. FOR LOOP WITH AN EMPTY INITIALIZER
+// ==========================================
+
+int k = 0;
+
+for (; k < 4; k++)
+{
+    forTotal = forTotal + k;
+}
+
+
+// ==========================================
+// 9. FOR LOOP WITH AN EMPTY ITERATOR
+// ==========================================
+
+int m = 0;
+
+for (int n = 0; n < 3;)
+{
+    m++;
+    n++;
+}
+
+
+// ==========================================
+// 10. FOR LOOP WITH AN EMPTY CONDITION
+// Do not execute until you support break.
+// ==========================================
+
+// for (int p = 0;; p++)
+// {
+//     doSomething();
+// }
+
+
+// ==========================================
+// 11. NESTED FOR LOOPS
+// ==========================================
+
+int nestedTotal = 0;
+
+for (int row = 0; row < 3; row++)
+{
+    for (int column = 0; column < 4; column++)
+    {
+        nestedTotal = nestedTotal + 1;
     }
 }
 
 
-// ============================================================
-// Nested if / else
-// ============================================================
+// ==========================================
+// 12. FOR LOOP CONTAINING A WHILE LOOP
+// ==========================================
 
-if (x > 0)
+int mixedTotal = 0;
+
+for (int q = 0; q < 3; q++)
 {
-    if (y > 0)
+    int r = 0;
+
+    while (r < 2)
     {
-        var result = x + y;
-    }
-    else
-    {
-        var result = x;
-    }
-}
-else
-{
-    if (y > 0)
-    {
-        var result = y;
-    }
-    else
-    {
-        var result = 0;
+        mixedTotal = mixedTotal + 1;
+        r++;
     }
 }
 
 
-// ============================================================
-// Nested else-if chains
-// ============================================================
+// ==========================================
+// 13. WHILE LOOP CONTAINING A FOR LOOP
+// ==========================================
 
-if (x > 0)
+int outerWhile = 0;
+int mixedNestedTotal = 0;
+
+while (outerWhile < 2)
 {
-    if (y > 10)
+    for (int s = 0; s < 3; s++)
     {
-        var result = 1;
+        mixedNestedTotal = mixedNestedTotal + 1;
     }
-    else if (y > 5)
-    {
-        var result = 2;
-    }
-    else
-    {
-        var result = 3;
-    }
+
+    outerWhile++;
 }
-else if (x < 0)
+
+
+// ==========================================
+// 14. FUNCTION CALL IN A LOOP CONDITION
+// ==========================================
+
+int limit()
 {
-    if (y > 10)
+    return 3;
+}
+
+int callCounter = 0;
+
+while (callCounter < limit())
+{
+    callCounter++;
+}
+
+
+// ==========================================
+// 15. RECURSIVE FUNCTION CALL INSIDE A LOOP
+// ==========================================
+
+int calculate(int value)
+{
+    if (value <= 1)
     {
-        var result = 4;
-    }
-    else if (y > 5)
-    {
-        var result = 5;
+        return 1;
     }
     else
     {
-        var result = 6;
+        return value * calculate(value - 1);
     }
 }
-else
+
+int factorialResult = 0;
+
+for (int f = 1; f <= 5; f++)
 {
-    var result = 7;
+    factorialResult = calculate(f);
 }
 
 
-// ============================================================
-// Deep nesting
-// ============================================================
+// ==========================================
+// 16. LOOP WITH A CONDITIONAL
+// ==========================================
 
-if (a)
+int conditionCounter = 0;
+int evenTotal = 0;
+
+while (conditionCounter < 10)
 {
-    if (b)
+    if (conditionCounter % 2 == 0)
     {
-        if (c)
+        evenTotal = evenTotal + conditionCounter;
+    }
+
+    conditionCounter++;
+}
+
+
+// ==========================================
+// 17. MULTIPLE NESTED BLOCKS
+// ==========================================
+
+int blockCounter = 0;
+
+for (int u = 0; u < 3; u++)
+{
+    {
         {
-            if (d)
-            {
-                if (e)
-                {
-                    var result = foo(
-                        a + b,
-                        bar(c * d),
-                        baz(e ^ 2)
-                    );
-                }
-            }
+            blockCounter++;
         }
     }
 }
 
 
-// ============================================================
-// Function containing conditionals
-// ============================================================
+// ==========================================
+// 18. EMPTY LOOP BODY
+// ==========================================
 
-int calculate(int x, int y)
+// Valid only if your grammar permits an empty statement.
+// Otherwise, leave this disabled.
+
+// while (false) ;
+// for (int v = 0; v < 0; v++) ;
+
+
+// ==========================================
+// 19. LOOP WITH A COMPLEX CONDITION
+// ==========================================
+
+int complexCounter = 0;
+
+for (int w = 0; w < 20 && w != 8; w++)
 {
-    if (x > y)
-    {
-        return x;
-    }
-    else if (x < y)
-    {
-        return y;
-    }
-    else
-    {
-        return x + y;
-    }
+    complexCounter++;
 }
 
 
-// ============================================================
-// Function + nested blocks + calls + conditionals
-// ============================================================
+// ==========================================
+// 20. LOOP WITH A FUNCTION CALL AS A STATEMENT
+// ==========================================
 
-complex monster(int x, float y)
+int logValue(int value)
 {
-    int a = x + 10;
-
-    if (a > 100 && y < 50)
-    {
-        {
-            float nested = y * 2;
-
-            if (nested > 25)
-            {
-                return foo(
-                    x,
-                    nested,
-                    -(x ^ 2)
-                );
-            }
-            else if (nested > 10)
-            {
-                return bar(x + a, nested);
-            }
-            else
-            {
-                return baz(x, nested);
-            }
-        }
-    }
-    else if (x < 0 || y >= 100)
-    {
-        if (!false)
-        {
-            return foo(x, y);
-        }
-    }
-    else
-    {
-        return foo(
-            x + y,
-            bar(x * y),
-            baz(x ^ 2, y ^ 2)
-        );
-    }
+    return value;
 }
 
-
-// ============================================================
-// The parser equivalent of someone trying to destroy it
-// ============================================================
-
-void absoluteMonster()
+for (int z = 0; z < 3; z++)
 {
-    int x = 123;
-
-    {
-        float y = 57.25;
-
-        if (x >= 100)
-        {
-            if (y < 100)
-            {
-                complex z = foo(
-                    x,
-                    y,
-                    -(x ^ 2)
-                );
-            }
-            else if (y == 100)
-            {
-                complex z = bar(
-                    x + y,
-                    foo(x, y)
-                );
-            }
-            else
-            {
-                complex z = baz(
-                    x * y,
-                    (x + y) ^ 2
-                );
-            }
-        }
-        else if (x >= 50)
-        {
-            if (x > 75 && y > 25 || x == 50)
-            {
-                var z = foo(
-                    sqrt(x),
-                    -(y ^ 2),
-                    bar(
-                        x + y,
-                        baz(x, y)
-                    )
-                );
-            }
-        }
-        else
-        {
-            if (!true)
-            {
-                var impossible = 123;
-            }
-        }
-    }
+    logValue(z);
 }

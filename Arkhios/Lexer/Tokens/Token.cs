@@ -12,4 +12,5 @@ namespace Arkhios.Lexer.Tokens
     internal record Symbol(SymbolType SymbolType) : Token(TokenType.Symbol);
     internal record Keyword(KeywordType KeywordType) : Token(TokenType.Keyword);
     internal record String(string Value) : Token(TokenType.String);
+    internal record EndOfFile() : Token(TokenType.EndOfFile);
 }

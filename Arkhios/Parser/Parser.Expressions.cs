@@ -218,18 +218,15 @@ namespace Arkhios.Parser
             while (Current is Symbol
                 {
                     SymbolType: SymbolType.Multiply
-                    or SymbolType.Divide
+                           or SymbolType.Divide
+                           or SymbolType.Modulo
                 })
             {
-                SymbolType @operator = ((Symbol)Current).SymbolType;
+                SymbolType op = ((Symbol)Current).SymbolType;
                 Advance();
 
                 Expression right = ParseUnary();
-
-                left = new BinaryExpression(
-                    left,
-                    @operator,
-                    right);
+                left = new BinaryExpression(left, op, right);
             }
 
             return left;

@@ -21,6 +21,9 @@ namespace Arkhios.Parser
                 Keyword { KeywordType: KeywordType.Return } => ParseReturnStatement(),
                 Symbol { SymbolType: SymbolType.LeftBrace } => ParseBlockStatement(),
                 Keyword { KeywordType: KeywordType.If } => ParseIfStatement(),
+                Identifier => DispatchIdentifierStatement(),
+                Keyword { KeywordType: KeywordType.While } => ParseWhileStatement(),
+                Keyword { KeywordType: KeywordType.For } => ParseForStatement(),
                 _ => throw new Exception("Expected a statement.")
             };
         }

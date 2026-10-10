@@ -10,6 +10,7 @@ namespace Arkhios.Lexer.Tokens.TokenTypes
         Number,
         Symbol,
         Keyword,
-        String
+        String,
+        EndOfFile
     }
 }

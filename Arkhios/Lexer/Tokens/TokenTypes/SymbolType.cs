@@ -32,6 +32,7 @@ namespace Arkhios.Lexer.Tokens.TokenTypes
         Arrow,
         Increment,
         Decrement,
+        Modulo,
 
         And,
         Or,

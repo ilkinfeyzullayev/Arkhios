@@ -1,4 +1,5 @@
-﻿using Arkhios.AST.Statements;
+﻿using Arkhios.AST.Expressions;
+using Arkhios.AST.Statements;
 using Arkhios.Lexer.Tokens;
 using Arkhios.Lexer.Tokens.TokenTypes;
 using System;
@@ -40,6 +41,24 @@ namespace Arkhios.Parser
             {
                 throw new Exception();
             }
+        }
+
+        private Statement DispatchIdentifierStatement()
+        {
+            if (Next is Symbol { SymbolType: SymbolType.Assign or SymbolType.Increment or SymbolType.Decrement })
+            {
+                return ParseAssignment();
+            }
+            else if (Next is Symbol { SymbolType: SymbolType.LeftParen })
+            {
+                Expression expression = ParsePostfix();
+
+                ExpectSymbol(SymbolType.Semicolon);
+
+                return new ExpressionStatement(expression);
+            }
+
+            throw new Exception("Expected an assignment or function call.");
         }
     }
 }

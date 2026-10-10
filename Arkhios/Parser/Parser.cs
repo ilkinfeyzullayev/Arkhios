@@ -11,7 +11,7 @@ namespace Arkhios.Parser
 
         private Token Current => TokenList[_position];
         private Token Next => TokenList[_position + 1];
-        private bool IsAtEnd => _position >= TokenList.Count;
+        private bool IsAtEnd => Current is EndOfFile;
 
         private static readonly HashSet<string> TypeList = new() { "int", "float", "complex", "string", "bool" };
 

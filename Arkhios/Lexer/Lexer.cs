@@ -27,7 +27,7 @@ namespace Arkhios.Lexer
             '+', '-', '*', '/', '^',
             '=', '<', '>', '!',
             '(', ')', '[', ']', '{', '}',
-            ',', ';'
+            ',', ';', '%'
         ];
 
         private static readonly HashSet<char> _helperSingleSymbols =
@@ -90,6 +90,8 @@ namespace Arkhios.Lexer
                     UnexpectedCharacter();
                 }
             }
+
+            TokenList.Add(new EndOfFile());
         }
 
         private void LexComment()
@@ -303,6 +305,7 @@ namespace Arkhios.Lexer
                 "=>" => new Symbol(SymbolType.Arrow),
                 "++" => new Symbol(SymbolType.Increment),
                 "--" => new Symbol(SymbolType.Decrement),
+                "%" => new Symbol(SymbolType.Modulo),
 
                 _ => new Identifier(lexeme.ToString())
             });
