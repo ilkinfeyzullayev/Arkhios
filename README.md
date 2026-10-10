@@ -24,10 +24,14 @@ The project currently has an initial lexer and parser capable of:
 * Applying operator precedence and associativity
 * Parsing comparison and logical operators
 * Parsing function call expressions and argument lists
+* Parsing function declarations and parameters
+* Parsing return statements
+* Parsing block statements and nested blocks
+* Parsing `if`, `else if`, and `else` statements
 * Building an initial abstract syntax tree (AST)
 * Representing parsed programs as structured AST nodes
 
-The parser and AST are still being expanded. Function declarations, control flow, semantic analysis, execution, and other major language features have not yet been implemented.
+The parser and AST are still being expanded. Semantic analysis, execution, type checking, and other major language features have not yet been implemented.
 
 ## Example
 
@@ -40,13 +44,28 @@ float y = 57.25;
 var result = x + y * 2;
 var valid = x >= 100 && y < 100;
 
-var value = sqrt(x);
-var nested = foo(x + y, -(x ^ 2));
+int square(int value)
+{
+    return value ^ 2;
+}
+
+if (x > 100)
+{
+    var result = square(x);
+}
+else if (x == 100)
+{
+    var result = 0;
+}
+else
+{
+    var result = -1;
+}
 ```
 
 This syntax is **not considered stable** and may change as Arkhios develops.
 
-Function declarations, control flow, and other higher-level language constructs are planned but are not yet fully supported by the parser.
+Loops, semantic analysis, execution, and other higher-level language features are planned but are not yet implemented.
 
 ## Project Structure
 
@@ -65,7 +84,9 @@ Arkhios/
 │   ├── Parser.Expressions.cs
 │   ├── Parser.Statements.cs
 │   ├── Parser.Helpers.cs
-│   └── Parser.VariableDeclarations.cs
+│   ├── Parser.VariableDeclarations.cs
+│   ├── Parser.BlockStatements.cs
+│   └── Parser.FunctionDeclaration.cs
 └── ...
 ```
 
@@ -107,7 +128,7 @@ Semantic Analysis
 Execution
 ```
 
-The lexer and initial parser/AST infrastructure are currently under development. The later stages are planned but are not implemented yet.
+The lexer and parser/AST infrastructure are currently under development. Semantic analysis and execution are planned but are not implemented yet.
 
 ## Current Philosophy
 
