@@ -1,4 +1,5 @@
 ﻿using Arkhios.Errors;
+using Arkhios.Errors.Lexing;
 using Arkhios.Lexer;
 using Arkhios.Parser;
 using System.Collections;
@@ -34,9 +35,9 @@ try
 {
     lexer.Lex();
 }
-catch (ArkhiosException ex)
+catch (ArkhiosException exception)
 {
-    Console.WriteLine(ex.Message);
+    Console.WriteLine(exception.Message);
     return;
 }
 

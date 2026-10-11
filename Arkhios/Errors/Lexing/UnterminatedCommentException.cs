@@ -1,14 +1,23 @@
-﻿using System;
+﻿using Arkhios.Diagnostics;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Arkhios.Errors.Lexing
 {
-    internal class UnterminatedCommentException : ArkhiosException
+    internal sealed class UnterminatedCommentException : ArkhiosException
     {
-        public UnterminatedCommentException(int line, int column)
-            : base($"Unterminated comment at line {line}, column {column}.")
+        public SourceSpan Span { get; }
+
+        public UnterminatedCommentException(
+            SourceSpan span,
+            string source)
+            : base(DiagnosticFormatter.Format(
+                "Unterminated comment",
+                span,
+                source))
         {
+            Span = span;
         }
     }
 }

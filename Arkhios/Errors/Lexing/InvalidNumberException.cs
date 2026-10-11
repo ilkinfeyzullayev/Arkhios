@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Arkhios.Diagnostics;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,13 +7,20 @@ namespace Arkhios.Errors.Lexing
 {
     internal sealed class InvalidNumberException : LexingException
     {
+        public string Number { get; }
+        public SourceSpan Span { get; }
+
         public InvalidNumberException(
             string number,
-            int line,
-            int column)
-            : base(
-                $"Invalid number '{number}' in line {line}, column {column}")
+            SourceSpan span,
+            string source)
+            : base(DiagnosticFormatter.Format(
+                $"Invalid number '{number}'",
+                span,
+                source))
         {
+            Number = number;
+            Span = span;
         }
     }
 }

@@ -45,7 +45,7 @@ namespace Arkhios.Parser
 
         private Statement DispatchIdentifierStatement()
         {
-            if (Next is Symbol { SymbolType: SymbolType.Assign or SymbolType.Increment or SymbolType.Decrement })
+            if (Next is Symbol { SymbolType: SymbolType.Assign or SymbolType.Increment or SymbolType.Decrement or SymbolType.PlusAssign or SymbolType.MinusAssign })
             {
                 return ParseAssignment();
             }

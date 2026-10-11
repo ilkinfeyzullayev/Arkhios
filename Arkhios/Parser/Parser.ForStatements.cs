@@ -12,33 +12,36 @@ namespace Arkhios.Parser
     {
         private ForStatement ParseForStatement()
         {
-            Advance(); // for
+            Advance();
             ExpectSymbol(SymbolType.LeftParen);
 
             Statement? initializer = null;
             Expression? condition = null;
             Statement? iterator = null;
 
-            // Initializer
             if (Current is not Symbol { SymbolType: SymbolType.Semicolon })
             {
-                initializer = Current is Identifier identifier &&
-                              TypeList.Contains(identifier.Value)
-                    ? ParseVariableDeclaration()
-                    : ParseAssignment();
+                initializer = Current switch
+                {
+                    Keyword { KeywordType: KeywordType.Var } =>
+                        ParseVariableDeclaration(),
+
+                    Identifier identifier when TypeList.Contains(identifier.Value) =>
+                        ParseVariableDeclaration(),
+
+                    _ => ParseAssignment()
+                };
             }
             else
             {
                 Advance();
             }
 
-            // Condition
             if (Current is not Symbol { SymbolType: SymbolType.Semicolon })
                 condition = ParseExpression();
 
             ExpectSymbol(SymbolType.Semicolon);
 
-            // Iterator
             if (Current is not Symbol { SymbolType: SymbolType.RightParen })
                 iterator = ParseAssignment(expectSemicolon: false);
 

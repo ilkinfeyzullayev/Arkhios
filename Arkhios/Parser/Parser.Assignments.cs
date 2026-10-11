@@ -44,6 +44,35 @@ namespace Arkhios.Parser
                     ExpectSymbol(SymbolType.Semicolon);
 
                 return new AssignmentStatement(name, value);
+            } else if (Next is Symbol { SymbolType: SymbolType.PlusAssign })
+            {
+                Advance();
+                Advance();
+
+                var value = new BinaryExpression(
+                    new IdentifierExpression(name),
+                    SymbolType.Plus,
+                    ParseExpression());
+
+                if (expectSemicolon)
+                    ExpectSymbol(SymbolType.Semicolon);
+
+                return new AssignmentStatement(name, value);
+            }
+            else if (Next is Symbol { SymbolType: SymbolType.MinusAssign })
+            {
+                Advance();
+                Advance();
+
+                var value = new BinaryExpression(
+                    new IdentifierExpression(name),
+                    SymbolType.Minus,
+                    ParseExpression());
+
+                if (expectSemicolon)
+                    ExpectSymbol(SymbolType.Semicolon);
+
+                return new AssignmentStatement(name, value);
             }
 
             Advance();

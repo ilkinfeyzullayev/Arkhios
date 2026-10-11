@@ -33,6 +33,8 @@ namespace Arkhios.Lexer.Tokens.TokenTypes
         Increment,
         Decrement,
         Modulo,
+        PlusAssign,
+        MinusAssign,
 
         And,
         Or,
